@@ -1,8 +1,16 @@
 package com.packag.mvcemp.controller;
 
+import java.util.List;
+import java.util.function.Consumer;
+
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+
+import com.packag.mvcemp.model.Employee;
+import com.packag.mvcemp.service.EmployeeService;
 
 @Controller
 @RequestMapping("employee")
@@ -13,5 +21,29 @@ public class RegisterController {
  {
 	 return "login";
  }
+ 
+ @GetMapping("/register")
+ public String register()
+ {
+	 return "register";
+ }
 
+ @GetMapping("/display")
+ public void displayAll()
+ {
+		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		
+		EmployeeService employeeService = context.getBean("employeeService", EmployeeService.class);
+		
+		Employee cooper = new Employee(108,"Keshu", 21, 50000);
+		employeeService.insertEmployee(cooper);
+		employeeService.updateEmployee(108, 10000);
+		//employeeService.delete(102);
+		List<Employee> empList= employeeService.listAll();
+
+		Consumer<Employee> c= (employee) -> System.out.println(employee);
+		empList.forEach(c);
+		Employee emp=employeeService.retreiveById(105);
+		System.out.println(emp);
+ }
 }

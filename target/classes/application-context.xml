@@ -13,10 +13,25 @@
   
     <!-- Provide support for component scanning -->  
     <context:component-scan base-package="com.packag.mvcemp" />  
+    
        <bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+    
         <property name="prefix" value="/WEB-INF/views/"/>
         <property name="suffix" value=".jsp"/>
     </bean>
+    
+	<bean id="employeeDAO" class="com.packag.mvcemp.dao.MySQLEmployeeDAOImpl">
+		<property name="dataSource" ref="mysqlDataSource" />
+	</bean>
+	
+	<bean id="mysqlDataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+
+		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
+		<property name="url" value="jdbc:mysql://localhost:3306/db" />
+		<property name="username" value="root" />
+		<property name="password" value="Sapient123" />
+	</bean>
+    
   
     <!--Provide support for conversion, formatting and validation -->  
     <mvc:annotation-driven/>  
