@@ -10,6 +10,7 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import com.packag.mvcemp.model.Employee;
@@ -40,7 +41,7 @@ public class RegisterController {
 		
 		EmployeeService employeeService = context.getBean("employeeService", EmployeeService.class);
 		
-		Employee cooper = new Employee(110,"Keshu", 21, 50000);
+		Employee cooper = new Employee(113,"Keshu", 21, 50000);
 		employeeService.insertEmployee(cooper);
 		employeeService.updateEmployee(108, 10000);
 		employeeService.delete(105);
@@ -53,5 +54,16 @@ public class RegisterController {
 		return "display";
  }
  
+ @GetMapping("/getid/{id}")
+ public String displayEmp(@PathVariable("id") int id,Model model)
+ {
+		ApplicationContext context = new ClassPathXmlApplicationContext("application-context.xml");
+		
+		EmployeeService employeeService = context.getBean("employeeService", EmployeeService.class);
+		
+		Employee employee=employeeService.retreiveById(id);
+		model.addAttribute("emp", employee);
+	 return "getid" ;
+ }
 
 }
