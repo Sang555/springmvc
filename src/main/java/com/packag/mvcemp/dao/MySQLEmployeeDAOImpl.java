@@ -39,7 +39,7 @@ public class MySQLEmployeeDAOImpl implements EmployeeDAO {
 	public List<Employee> listAll() {
 		// TODO Auto-generated method stub
 		List<Employee> empList=jdbcTemplate.query("select * from employee",
-				(rs,rowNum) -> new Employee(rs.getInt(1),rs.getString(2),rs.getInt(1),rs.getDouble(4)));
+				(rs,rowNum) -> new Employee(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getDouble(4)));
 		return empList;
 	}
 
