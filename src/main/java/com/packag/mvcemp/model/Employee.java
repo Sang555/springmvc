@@ -1,11 +1,25 @@
 package com.packag.mvcemp.model;
 
+import javax.validation.constraints.Size;
 
+import org.hibernate.validator.constraints.Email;
+import org.hibernate.validator.constraints.NotEmpty;
+
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 
 public class Employee {
+	
+	@NotNull(message = "Id should not be null")
 	private int id;
+	
+	@Size(max = 20, min = 3, message = "{user.name.empty}")
 	private String name;
+	
+	@Min(value = 30,  message = "Age should be atleast 30")
 	private int age;
+	
+	
 	private double salary;
 	
 	public Employee(int id,String name, int age, double salary)
@@ -16,6 +30,10 @@ public class Employee {
 		this.salary=salary;
 	}
 	
+	public Employee() {
+		// TODO Auto-generated constructor stub
+	}
+
 	@Override
 	public String toString() {
 		return "Employee [id=" + id + ", name=" + name + ", age=" + age + ", salary=" + salary + "]";

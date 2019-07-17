@@ -60,10 +60,12 @@ public class MySQLEmployeeDAOImpl implements EmployeeDAO {
 		//List<Employee> empList=jdbcTemplate.query(query,
 		//		(rs,rowNum) -> new Employee(rs.getInt(1),rs.getString(2),rs.getInt(1),rs.getDouble(4)));
 		//return empList.get(0);
-		
-		return jdbcTemplate.queryForObject(query,
-				(rs,rowNum) -> new Employee(rs.getInt(1),rs.getString(2),rs.getInt(1),rs.getDouble(4)));
+		jdbcTemplate = new JdbcTemplate(dataSource);
+		List<Employee> empList= jdbcTemplate.query(query,
+				(rs,rowNum) -> new Employee(rs.getInt(1),rs.getString(2),rs.getInt(3),rs.getDouble(4)));
 		// TODO Auto-generated method stub
+		Employee employee= empList.get(0);
+		return employee;
 		
 	}
 
